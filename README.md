@@ -1,5 +1,7 @@
 ## Sparkly: TF/IDF Blocking for Entity Matching
 
+Maintained by MadMatcher LLC. See [FORK_NOTES.md](FORK_NOTES.md) for provenance details.
+
 Sparkly is an open-source tool for the blocking step of entity matching. Entity matching finds tuples from two tables A and B that match, that is, refer to the same real-world entity. It typically proceeds in two steps. *The blocking step* uses heuristics to quickly identify a relatively small set of tuple pairs that can be matches. *The matching step* applies a (rule- or learning-based) matcher to each surviving pair to predict match/no-match. (See [this page](https://anhaidgroup.github.io/magellan/about) for details.)
 
 Sparkly focuses on the blocking step, and is distinguished in four aspects: 
@@ -9,7 +11,7 @@ Sparkly focuses on the blocking step, and is distinguished in four aspects:
 * It outperforms many state-of-the-art blocking solutions. See [this paper](https://pages.cs.wisc.edu/~anhai/papers1/sparkly-vldb2023.pdf) for details. 
 * Variations of Sparkly have been implemented in industry and used by hundreds of enterprises.
 
-If you have blocking heuristics you want to use, you may want to consider Delex, an even more powerful blocking solution, which allows you to combine multiple blocking heuristics, including TF/IDF. See the [Delex homepage](https://github.com/anhaidgroup/delex/tree/main) for more details, including when to use Sparkly versus Delex. 
+If you have blocking heuristics you want to use, you may want to consider Delex, an even more powerful blocking solution, which allows you to combine multiple blocking heuristics, including TF/IDF. See the [Delex homepage](https://github.com/MadMatcher/delex) for more details, including when to use Sparkly versus Delex. 
 
 ### How Sparkly Works
 
@@ -37,6 +39,6 @@ Here is [the Sparkly paper](https://pages.cs.wisc.edu/~anhai/papers1/sparkly-vld
 
 ### Further Pointers
 
-See [API documentation](https://anhaidgroup.github.io/sparkly/). 
-For questions / comments, contact [our research group](mailto:entitymatchinginfo@gmail.com).
+See [API documentation](https://anhaidgroup.github.io/sparkly/) (currently hosted on the original research group's site; canonical docs migration planned). 
+For questions / comments, contact [MadMatcher](mailto:dev@hellomadmatcher.com).
 
