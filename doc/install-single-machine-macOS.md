@@ -202,7 +202,7 @@ We will be downloading two packages: setuptools and build. These packages are us
 To install setuptools, run:
 
 ```
-	pip install setuptools
+	pip install 'setuptools==70.3.0'
 ```
 
 To install build, run:
@@ -418,7 +418,7 @@ This step installs JCC and PyLucene, which are both necessary for Sparkly. Befor
 We are going to use pylucene-9.12.0. This version is compatible with the M1 chip on Mac. To download this version, go to:
 
 ```
-	https://dlcdn.apache.org/lucene/pylucene/
+	https://archive.apache.org/dist/lucene/pylucene/
 ```
 
 and download **pylucene-9.12.0-src.tar.gz** by clicking on the hyperlink

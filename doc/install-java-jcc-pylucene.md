@@ -6,11 +6,11 @@ At the heart of Sparkly are Lucene and Spark. The Lucene library allows us to qu
 
 However, Lucene is written in Java, while the rest of Sparkly is written in Python, to take advantage of many other Python packages. To bridge this Java-Python gap, we use the well-known package PyLucene. Briefly, PyLucene uses JCC to compile Lucene's Java code to C, then compile C code to Python. So we need to install Java, JCC, and PyLucene.
 
-Installing PyLucene is tricky as it is somewhat finicky. We have extensively tested installing PyLucene on <span style="color: red;">Linux Ubuntu 22.04 on machines with x86 architecture</span>, with Python 3.10, so if you go with this configuration, use the installation instruction below.
+Installing PyLucene is tricky as it is somewhat finicky. We have extensively tested installing PyLucene on <span style="color: red;">Linux Ubuntu 22.04 on machines with x86 architecture</span>, with Python 3.12, so if you go with this configuration, use the installation instruction below.
 
 If you use MacOS, you can probably still use the instruction below, but read the tips for installing PyLucene on MacOS at the end of this page. If you go with any other configuration, you should refer to the PyLucene website for installation instructions: [https://lucene.apache.org/pylucene/install.html](https://lucene.apache.org/pylucene/install.html)
 
-In what follows we provide a step-by-step guide for installing PyLucene on Linux Ubuntu 22.04 on machines with x86 architecture, with Python 3.10.
+In what follows we provide a step-by-step guide for installing PyLucene on Linux Ubuntu 22.04 on machines with x86 architecture, with Python 3.12.
 
 ### Step 1: Installing Java
 
@@ -49,17 +49,23 @@ sudo apt install g++
 
 ### Step 3: Installing JCC and PyLucene
 
-Next, you must download and unpack PyLucene 9.4.1. You can do so by running these commands:
+Next, you must download and unpack PyLucene 9.12.0. You can do so by running these commands:
 
 ```
-wget https://dlcdn.apache.org/lucene/pylucene/pylucene-9.4.1-src.tar.gz
-tar -xvf pylucene-9.4.1-src.tar.gz
+wget https://archive.apache.org/dist/lucene/pylucene/pylucene-9.12.0-src.tar.gz
+tar -xvf pylucene-9.12.0-src.tar.gz
 ```
 
-This will produce a folder called 'pylucene-9.4.1'. This is the main PyLucene directory. You should switch to it by running the following command:
+This will produce a folder called 'pylucene-9.12.0'. This is the main PyLucene directory. You should switch to it by running the following command:
 
 ```
-cd pylucene-9.4.1
+cd pylucene-9.12.0
+```
+
+Before building JCC, install a compatible version of setuptools for the Python you are building against. PyLucene's JCC build only enables the `--shared` mode (used in the `make` commands below) when setuptools still exposes the legacy `pkg_resources.extern.packaging` module. That module was removed in setuptools 71, so a newer setuptools causes JCC to build **without** shared support and the `make` step fails with `JCC was not built with --shared mode support`. Pin setuptools to 70.3.0 — the newest release that works on Python 3.12 and keeps JCC's shared mode working — matching the [single-machine Linux guide](./install-single-machine-linux.md):
+
+```
+sudo python3 -m pip install 'setuptools==70.3.0'
 ```
 
 The source code for JCC is distributed with the PyLucene source code and must be installed before you can install PyLucene. The following commands will switch to the 'jcc' subdirectory, build and install JCC, then return to the main PyLucene directory.

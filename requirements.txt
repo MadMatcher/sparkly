@@ -1,12 +1,18 @@
-joblib>=1.2.0
-mmh3>=3.0.0
-numba>=0.58.0
-numpy>=1.21.5
-numpydoc>=1.5.0
-pandas>=1.5.2
+# Runtime dependencies for sparkly.
+# Shared scientific/Spark deps are PINNED to exact versions so that installing
+# sparkly, delex, and MatchFlow into the same environment always resolves to one
+# mutually-tested set (no version drift between the packages). These pins match
+# the repo-root constraints.txt. Package-local leaf deps (e.g. psutil) keep a
+# floor (>=) since they do not participate in the cross-package shared set.
+#
+# Also requires PyLucene (Java/JCC build, not pip-installable) — see doc/install-*.md.
+joblib==1.2.0
+numba==0.60.0
+numpy==1.26.0
+pandas==2.2.3
 psutil>=5.9.0
-pyarrow>=10.0.1
-pyspark>=3.3.1
-scipy>=1.8.0
-tqdm>=4.64.1
-pydantic>=2.6.0
+pyarrow==14.0.0
+pydantic==2.11.1
+pyspark==3.5.3
+scipy==1.15.2
+tqdm==4.64.1

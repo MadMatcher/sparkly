@@ -1,6 +1,6 @@
 ## How to Install Sparkly on a Linux Machine
 
-The following step-by-step guide describes how to install Sparkly on a single machine running Linux Ubuntu 22.04 (with x86 architecture), Python 3.10, g++ compiler, Java Temurin JDK 17, and PyLucene 9.4.1. You can adapt this guide for other similar configurations using Linux on x86 architecture.
+The following step-by-step guide describes how to install Sparkly on a single machine running Linux Ubuntu 22.04 (with x86 architecture), Python 3.12, g++ compiler, Java Temurin JDK 17, and PyLucene 9.12.0. You can adapt this guide for other similar configurations using Linux on x86 architecture.
 
 ### Step 0: Installing System Dependencies
 
@@ -16,7 +16,7 @@ sudo apt-get install -y build-essential wget apt-transport-https gnupg curl make
 
 ### Step 1: Installing Python
 
-We now install Python 3.10, create a virtual environment, and install two Python packages setuptools and build. Other versions of Python, other environments, or incorrect installations of the setuptools and build packages can cause issues with Sparkly installation.
+We now install Python 3.12, create a virtual environment, and install two Python packages setuptools and build. Other versions of Python, other environments, or incorrect installations of the setuptools and build packages can cause issues with Sparkly installation.
 
 If you suspect that you may have Python downloaded on your machine already, open up your terminal. Then run the command:
 
@@ -36,7 +36,7 @@ run:
 
 If the output of this is
 
-“Python 3.10.x”
+“Python 3.12.x”
 
 where x is a number, you can go to Step 1B (you do not need to complete Step 1A).
 
@@ -54,19 +54,19 @@ python3 --version
 
 do not have the outputs listed above, continue to step 1A.
 
-#### Step 1A: Installing Python 3.10
+#### Step 1A: Installing Python 3.12
 
-Here we download Python 3.10 and install it.
-Run the following commands in the terminal to install Python 3.10:
+Here we download Python 3.12 and install it.
+Run the following commands in the terminal to install Python 3.12:
 
 ```
     cd /usr/src
-    sudo curl -O https://www.python.org/ftp/python/3.10.12/Python-3.10.12.tgz
-    sudo tar xzf Python-3.10.12.tgz
+    sudo curl -O https://www.python.org/ftp/python/3.12.3/Python-3.12.3.tgz
+    sudo tar xzf Python-3.12.3.tgz
 ```
 
 ```
-    cd Python-3.10.12
+    cd Python-3.12.3
     sudo make clean
     sudo ./configure --enable-optimizations --with-system-ffi
     sudo make -j$(nproc)
@@ -76,18 +76,18 @@ Run the following commands in the terminal to install Python 3.10:
 To confirm this step was successful, you should run:
 
 ```
-    python3.10 --version
+    python3.12 --version
 ```
 
 and ensure the output says:
 
-“Python 3.10.x”
+“Python 3.12.x”
 
 where x is a number.
 
 #### Step 1B: Setting Up the Python Environment
 
-Now we will create a Python environment with Python 3.10. This step is necessary to make sure we use the correct version of Python with the correct dependencies. First, we install the venv module with the following command:
+Now we will create a Python environment with Python 3.12. This step is necessary to make sure we use the correct version of Python with the correct dependencies. First, we install the venv module with the following command:
 
 ```
     sudo apt install python3-venv
@@ -96,7 +96,7 @@ Now we will create a Python environment with Python 3.10. This step is necessary
 Next, in your terminal, run:
 
 ```
-    python3.10 -m venv ~/sparkly-venv
+    python3.12 -m venv ~/sparkly-venv
 ```
 
 This will create a virtual environment named sparkly-venv. To activate this environment, run the following:
@@ -113,7 +113,7 @@ To make sure everything is correct, run:
 
 If the output says
 
-“Python 3.10.x”
+“Python 3.12.x”
 
 where x ≥ 0, then the Python environment setup was successful.
 
@@ -128,8 +128,10 @@ Before installing these two packages, make sure you are in the virtual environme
 To install setuptools, run:
 
 ```
-    pip install 'setuptools<58'
+    pip install 'setuptools==70.3.0'
 ```
+
+The setuptools version matters on Linux. PyLucene's JCC build only enables the `--shared` mode (used in Step 3.3) when setuptools still exposes the legacy `pkg_resources.extern.packaging` module. That module was removed in setuptools 71, so newer setuptools causes JCC to build **without** shared support, and the PyLucene `make` step later fails with `JCC was not built with --shared mode support`. setuptools 70.3.0 is the newest release that both works with Python 3.12 and keeps JCC's shared mode working. The [macOS guide](./install-single-machine-macOS.md) pins this same version so both platforms use an identical toolchain.
 
 To install build, run:
 
@@ -166,7 +168,7 @@ In the future you can install Sparkly using one of the following two options. **
 Next, you can install Sparkly from PyPI, using the following command:
 
 ```
-pip install sparkly-em
+pip install sparkly
 ```
 
 This command will install Sparkly and all of its dependencies, such as Joblib, mmh3, Numba, Numpy, Numpydoc, Pandas, Psutil, Pyarrow, Pyspark, Scipy, and Tqdm, _except Java, JCC, and PyLucene_.
@@ -228,17 +230,17 @@ sudo apt install g++
 
 #### Step 3.3: Installing JCC and PyLucene
 
-You must download and unpack PyLucene 9.4.1. You can do so by running these commands:
+You must download and unpack PyLucene 9.12.0. You can do so by running these commands:
 
 ```
-wget https://dlcdn.apache.org/lucene/pylucene/pylucene-9.4.1-src.tar.gz
-tar -xvf pylucene-9.4.1-src.tar.gz
+wget https://archive.apache.org/dist/lucene/pylucene/pylucene-9.12.0-src.tar.gz
+tar -xvf pylucene-9.12.0-src.tar.gz
 ```
 
-This will produce a folder called 'pylucene-9.4.1'. This is the main PyLucene directory. You should switch to it by running the following command:
+This will produce a folder called 'pylucene-9.12.0'. This is the main PyLucene directory. You should switch to it by running the following command:
 
 ```
-cd pylucene-9.4.1
+cd pylucene-9.12.0
 ```
 
 Next, we will explicitly set the location of our virtual environment to avoid any issues with installation.
