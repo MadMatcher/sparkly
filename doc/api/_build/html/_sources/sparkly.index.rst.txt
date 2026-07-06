@@ -12,14 +12,6 @@ sparkly\.index\.index\_base module
     :undoc-members:
     :show-inheritance:
 
-sparkly\.index\.index\_config module
-------------------------------------
-
-.. automodule:: sparkly.index.index_config
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 sparkly\.index\.lucene\_index module
 ------------------------------------
 

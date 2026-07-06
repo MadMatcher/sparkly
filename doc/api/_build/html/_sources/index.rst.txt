@@ -1,16 +1,18 @@
-.. Sparkly documentation master file, created by
-   sphinx-quickstart on Fri May 27 09:53:00 2022.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Sparkly documentation
+=====================
 
-Welcome to Sparkly's documentation!
-===================================
+Sparkly performs distributed TF/IDF blocking: it builds a Lucene index over one
+table and runs bulk top-k similarity search to produce candidate pairs for matching.
+This is the API reference for the classes and functions you call, organized by module.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: API reference
 
-
+   sparkly
+   sparkly.index
+   sparkly.index_optimizer
+   sparkly.query_generator
 
 Indices and tables
 ==================
@@ -18,4 +20,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
